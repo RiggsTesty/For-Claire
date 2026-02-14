@@ -8,44 +8,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background: #fff8fb;
     color: #2d2d2d;
     text-align: center;
-    padding: 70px 20px;
+    overflow-x: hidden;
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 44px;
-    font-weight: 600;
-    margin-bottom: 10px;
+/* Fade in */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
 }
 
-.subtitle {
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #c48a97;
-    margin-bottom: 70px;
+@keyframes fadeIn {
+    to { opacity: 1; }
 }
 
-.section {
-    max-width: 640px;
-    margin: 0 auto 80px auto;
+/* Password Screen */
+#password-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #e2a9b4;
+    margin-top: 15px;
 }
 
 button {
-    background: transparent;
+    margin-top: 20px;
+    padding: 10px 25px;
     border: 1px solid #e2a9b4;
-    padding: 12px 32px;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    background: transparent;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
 button:hover {
@@ -54,13 +58,32 @@ button:hover {
 }
 
 .hidden {
+    display: none;
+}
+
+/* Main Content */
+#main-content {
+    padding: 70px 20px;
+    max-width: 700px;
+    margin: auto;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+}
+
+.section {
+    margin-top: 70px;
+}
+
+.reveal-text {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 1.2s ease, max-height 1.2s ease;
-    margin-top: 30px;
-    font-size: 18px;
-    line-height: 1.9;
+    transition: opacity 1s ease, max-height 1s ease;
+    line-height: 1.8;
+    margin-top: 25px;
 }
 
 .show {
@@ -68,39 +91,130 @@ button:hover {
     max-height: 1000px;
 }
 
-footer {
-    margin-top: 120px;
-    font-size: 14px;
-    color: #c48a97;
+/* Elegant Photo */
+.photo {
+    margin-top: 60px;
 }
+
+.photo img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+}
+
+/* Floating particles */
+.particle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: rgba(226,169,180,0.3);
+    border-radius: 50%;
+    animation: floatUp 15s linear infinite;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    to {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
 </style>
-
-<script>
-function reveal(id){
-    const element = document.getElementById(id);
-    element.classList.toggle("show");
-}
-</script>
-
 </head>
 
 <body>
 
-<h1>For Claire</h1>
-<div class="subtitle">Valentine’s Day</div>
-
-<div class="section">
-    <button onclick="reveal('one')">Why You</button>
-    <div id="one" class="hidden">
-        Claire, <br><br>
-        You are the most beautiful woman in the world — and I don’t just mean how you look. <br><br>
-        Your presence changes a room. Your smile shifts my entire day. <br><br>
-        I didn’t just fall for you. <br>
-        I recognized you.
-    </div>
+<div id="password-screen" class="fade-in">
+    <h1>For Claire</h1>
+    <p>Enter the password to continue</p>
+    <input type="password" id="password">
+    <button onclick="checkPassword()">Enter</button>
 </div>
 
-<div class="section">
-    <button onclick="reveal('two
+<div id="main-content" class="hidden fade-in">
+    <h1>For Claire</h1>
 
+    <div class="section">
+        <button onclick="reveal('one')">Why You</button>
+        <div id="one" class="reveal-text">
+            Claire,<br><br>
+            You are the most beautiful woman in the world — inside and out.<br><br>
+            I didn’t just fall in love with you.<br>
+            I recognized you.
+        </div>
+    </div>
 
+    <div class="section">
+        <button onclick="reveal('two')">What I Admire</button>
+        <div id="two" class="reveal-text">
+            The most hardworking person I know.<br><br>
+            The most genuine human being I have ever met.<br><br>
+            Real. Kind. Pure.
+        </div>
+    </div>
+
+    <div class="photo">
+        <img src="claire.jpg" alt="Claire">
+    </div>
+
+    <div class="section">
+        <button onclick="reveal('three')">Only If You're Smiling</button>
+        <div id="three" class="reveal-text">
+            If you're not smiling right now...<br><br>
+            Sheesh kebab. ❤️
+        </div>
+    </div>
+
+    <div class="section">
+        <button onclick="reveal('four')">My Promise</button>
+        <div id="four" class="reveal-text">
+            I will choose you.<br>
+            On easy days.<br>
+            On difficult days.<br>
+            On ordinary Tuesdays.<br><br>
+            Forever.
+        </div>
+    </div>
+
+    <p style="margin-top:100px;color:#c48a97;">Forever yours,<br>Riggs</p>
+</div>
+
+<audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function checkPassword() {
+    var password = document.getElementById("password").value;
+    if(password === "sheeshkebab") {
+        document.getElementById("password-screen").classList.add("hidden");
+        document.getElementById("main-content").classList.remove("hidden");
+        document.getElementById("bg-music").play();
+        createParticles();
+    } else {
+        alert("Hint: Something that always makes you laugh 😉");
+    }
+}
+
+function reveal(id) {
+    document.getElementById(id).classList.toggle("show");
+}
+
+function createParticles() {
+    for(let i=0; i<25; i++){
+        let particle = document.createElement("div");
+        particle.className = "particle";
+        particle.style.left = Math.random()*100 + "vw";
+        particle.style.animationDuration = (10 + Math.random()*10) + "s";
+        document.body.appendChild(particle);
+    }
+}
+</script>
+
+</body>
+</html>
